@@ -10,7 +10,7 @@ import com.example.cryptocurrencyapp.R
 import com.example.cryptocurrencyapp.model.response.CurrentCoinDataResponse
 
 class TickerAdapter (
-
+    private val navigationToMarketsForCoin: NavigationToMarketsForCoin
 ) :
     RecyclerView.Adapter<TickerAdapter.CoinDataHolder>() {
 
@@ -42,5 +42,8 @@ class TickerAdapter (
         holder.coinPrice.text =
             "${kotlin.math.round(coinDataItem.priceUsd!!.toDouble() * 1000) / 1000}$"
         holder.itemView.tag = coinDataItem.id
+        holder.itemView.setOnClickListener {
+            navigationToMarketsForCoin.navigateToMarkets(coinDataItem.id!!)
+        }
     }
 }

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cryptocurrencyapp.adapters.NavigationToMarketsForCoin
 import com.example.cryptocurrencyapp.adapters.TickerAdapter
 import com.example.cryptocurrencyapp.databinding.FragmentAllTickersBinding
 import com.example.cryptocurrencyapp.viewmodels.AllTickerViewModel
@@ -25,13 +27,13 @@ class AllTickersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAllTickersBinding.inflate(layoutInflater, container, false)
-        binding.coinsDataRecycler.layoutManager = LinearLayoutManager(context)
-        tickerAdapter = TickerAdapter().apply {
+        binding.tickersRecycler.layoutManager = LinearLayoutManager(context)
+        tickerAdapter = TickerAdapter(actionToMarkets).apply {
             viewModel.coinsDataList.observe(viewLifecycleOwner) {
                 tickerList = it
             }
         }
-        binding.coinsDataRecycler.adapter = tickerAdapter
+        binding.tickersRecycler.adapter = tickerAdapter
         binding.refreshButton.setOnClickListener {
             viewModel.refreshTickers()
         }
@@ -41,5 +43,13 @@ class AllTickersFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private val actionToMarkets = object : NavigationToMarketsForCoin {
+        override fun navigateToMarkets(coinId: String) {
+            val action =
+                AllTickersFragmentDirections.actionAllTickersFragmentToMarketsForCoinFragment(coinId)
+            findNavController().navigate(action)
+        }
     }
 }

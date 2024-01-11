@@ -9,5 +9,21 @@
         android:id="@+id/allTickersFragment"
         android:name="com.example.cryptocurrencyapp.fragments.AllTickersFragment"
         android:label="fragment_all_tickers"
-        tools:layout="@layout/fragment_all_tickers" />
+        tools:layout="@layout/fragment_all_tickers" >
+        <action
+            android:id="@+id/action_allTickersFragment_to_marketsForCoinFragment"
+            app:destination="@id/marketsForCoinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marketsForCoinFragment"
+        android:name="com.example.cryptocurrencyapp.fragments.MarketsForCoinFragment"
+        android:label="fragment_markets_for_coin"
+        tools:layout="@layout/fragment_markets_for_coin" >
+        <argument
+            android:name="coinId"
+            app:argType="string" />
+    </fragment>
+    <argument
+        android:name="coinId"
+        app:argType="string" />
 </navigation>

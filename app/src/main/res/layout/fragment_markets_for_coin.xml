@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AllTickersFragment">
+    tools:context=".fragments.MarketsForCoinFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tickers_recycler"
+        android:id="@+id/markets_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/ticker_item" />
+        tools:listitem="@layout/market_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/refreshButton"
