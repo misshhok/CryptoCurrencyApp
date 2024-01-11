@@ -20,4 +20,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/ticker_item" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_blue_bright"
+        android:importantForAccessibility="no"
+        android:src="@drawable/refresh_tickers_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

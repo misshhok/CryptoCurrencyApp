@@ -11,16 +11,16 @@ import com.example.cryptocurrencyapp.model.response.CurrentCoinDataResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AllTickerViewModel (private val coinLoreClient: CoinLoreClient) : ViewModel() {
+class AllTickerViewModel(private val coinLoreClient: CoinLoreClient) : ViewModel() {
 
     private var _coinsDataList = MutableLiveData<List<CurrentCoinDataResponse>>()
     val coinsDataList: LiveData<List<CurrentCoinDataResponse>> = _coinsDataList
 
     init {
-        refreshCoinsData()
+        refreshTickers()
     }
 
-    fun refreshCoinsData() {
+    fun refreshTickers() {
         viewModelScope.launch(Dispatchers.IO) {
             _coinsDataList.postValue(coinLoreClient.getTickers().currentCoinData)
         }
@@ -33,7 +33,8 @@ class AllTickerViewModel (private val coinLoreClient: CoinLoreClient) : ViewMode
             override fun <T : ViewModel> create(
                 modelClass: Class<T>, extras: CreationExtras
             ): T {
-                return AllTickerViewModel(CoinLoreClient.getInstance()
+                return AllTickerViewModel(
+                    CoinLoreClient.getInstance()
                 ) as T
             }
         }

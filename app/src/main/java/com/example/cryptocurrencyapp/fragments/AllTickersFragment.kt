@@ -32,7 +32,9 @@ class AllTickersFragment : Fragment() {
             }
         }
         binding.coinsDataRecycler.adapter = tickerAdapter
-
+        binding.refreshButton.setOnClickListener {
+            viewModel.refreshTickers()
+        }
         return binding.root
     }
 
