@@ -4,3 +4,9 @@ interface NavigationToMarketsForCoin {
 
     fun navigateToMarkets(coinId: String)
 }
+
+
+interface NavigationToExchange {
+
+    fun navigateToExchange(exchangeName: String)
+}

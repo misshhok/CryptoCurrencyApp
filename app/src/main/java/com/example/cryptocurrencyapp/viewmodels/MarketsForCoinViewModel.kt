@@ -15,8 +15,8 @@ class MarketsForCoinViewModel (
     private val coinId: String, private val coinLoreClient: CoinLoreClient
 ) : ViewModel() {
 
-    private var _marketsForCoinList = MutableLiveData<List<MarketForCoinResponse>>()
-    val marketsForCoinList: LiveData<List<MarketForCoinResponse>> = _marketsForCoinList
+    private var _marketsForCoin = MutableLiveData<List<MarketForCoinResponse>>()
+    val marketsForCoin: LiveData<List<MarketForCoinResponse>> = _marketsForCoin
 
     init {
         refreshMarkets()
@@ -25,7 +25,7 @@ class MarketsForCoinViewModel (
     fun refreshMarkets() {
         viewModelScope.launch(Dispatchers.IO) {
             val marketsForCoin = coinLoreClient.getMarketsForCoinById(coinId)
-            _marketsForCoinList.postValue(marketsForCoin)
+            _marketsForCoin.postValue(marketsForCoin)
         }
     }
 

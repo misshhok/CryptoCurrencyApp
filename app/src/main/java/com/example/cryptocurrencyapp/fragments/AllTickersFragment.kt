@@ -29,7 +29,7 @@ class AllTickersFragment : Fragment() {
         _binding = FragmentAllTickersBinding.inflate(layoutInflater, container, false)
         binding.tickersRecycler.layoutManager = LinearLayoutManager(context)
         tickerAdapter = TickerAdapter(actionToMarkets).apply {
-            viewModel.coinsDataList.observe(viewLifecycleOwner) {
+            viewModel.coinsData.observe(viewLifecycleOwner) {
                 tickerList = it
             }
         }

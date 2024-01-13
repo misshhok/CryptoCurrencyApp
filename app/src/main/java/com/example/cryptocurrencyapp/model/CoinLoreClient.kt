@@ -5,15 +5,12 @@ import com.example.cryptocurrencyapp.model.response.CurrentCoinDataResponse
 import com.example.cryptocurrencyapp.model.response.ExchangeDataResponse
 import com.example.cryptocurrencyapp.model.response.FetchExchangeDataResponse
 import com.example.cryptocurrencyapp.model.response.MarketForCoinResponse
-import com.example.cryptocurrencyapp.model.response.SocialStatsResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CoinLoreClient {
-    @GET("coin/social_stats/")
-    suspend fun getSocialStats(@Query("id") coinId: String): SocialStatsResponse
     @GET("tickers/")
     suspend fun getTickers(): AllCurrentTickersResponse
     @GET("exchange/")

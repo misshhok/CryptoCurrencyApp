@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class AllTickerViewModel(private val coinLoreClient: CoinLoreClient) : ViewModel() {
 
-    private var _coinsDataList = MutableLiveData<List<CurrentCoinDataResponse>>()
-    val coinsDataList: LiveData<List<CurrentCoinDataResponse>> = _coinsDataList
+    private var _coinsData = MutableLiveData<List<CurrentCoinDataResponse>>()
+    val coinsData: LiveData<List<CurrentCoinDataResponse>> = _coinsData
 
     init {
         refreshTickers()
@@ -22,7 +22,7 @@ class AllTickerViewModel(private val coinLoreClient: CoinLoreClient) : ViewModel
 
     fun refreshTickers() {
         viewModelScope.launch(Dispatchers.IO) {
-            _coinsDataList.postValue(coinLoreClient.getTickers().currentCoinData)
+            _coinsData.postValue(coinLoreClient.getTickers().currentCoinData)
         }
     }
 

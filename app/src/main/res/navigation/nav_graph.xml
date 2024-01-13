@@ -22,8 +22,20 @@
         <argument
             android:name="coinId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_marketsForCoinFragment_to_exchangeFragment"
+            app:destination="@id/exchangeFragment" />
     </fragment>
     <argument
         android:name="coinId"
         app:argType="string" />
+    <fragment
+        android:id="@+id/exchangeFragment"
+        android:name="com.example.cryptocurrencyapp.fragments.ExchangeFragment"
+        android:label="fragment_exchange"
+        tools:layout="@layout/fragment_exchange" >
+        <argument
+            android:name="exchangeName"
+            app:argType="string" />
+    </fragment>
 </navigation>

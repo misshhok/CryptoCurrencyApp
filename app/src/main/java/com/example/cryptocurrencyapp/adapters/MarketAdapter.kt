@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptocurrencyapp.R
 import com.example.cryptocurrencyapp.model.response.MarketForCoinResponse
 
-class MarketAdapter () :
+class MarketAdapter(private val navigationToExchange: NavigationToExchange) :
     RecyclerView.Adapter<MarketAdapter.MarketHolder>() {
 
     class MarketHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,5 +41,8 @@ class MarketAdapter () :
             "${marketItem.base} ${kotlin.math.round(marketItem.priceUsd * 1000) / 1000}$"
         holder.marketCoinPriceQuote.text =
             "${marketItem.base} ${kotlin.math.round(marketItem.price * 1000) / 1000} ${marketItem.quote}"
+        holder.itemView.setOnClickListener {
+            navigationToExchange.navigateToExchange(marketItem.name)
+        }
     }
 }

@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cryptocurrencyapp.adapters.MarketAdapter
-import com.example.cryptocurrencyapp.adapters.TickerAdapter
+import com.example.cryptocurrencyapp.adapters.NavigationToExchange
 import com.example.cryptocurrencyapp.databinding.FragmentMarketsForCoinBinding
 import com.example.cryptocurrencyapp.viewmodels.MarketsForCoinViewModel
 
@@ -28,11 +29,11 @@ class MarketsForCoinFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMarketsForCoinBinding.inflate(layoutInflater, container, false)
         binding.marketsRecycler.layoutManager = LinearLayoutManager(context)
-        marketAdapter = MarketAdapter().apply {
-            viewModel.marketsForCoinList.observe(viewLifecycleOwner) {
+        marketAdapter = MarketAdapter(actionToExchange).apply {
+            viewModel.marketsForCoin.observe(viewLifecycleOwner) {
                 marketsForCoinList = it
             }
         }
@@ -41,5 +42,20 @@ class MarketsForCoinFragment : Fragment() {
             viewModel.refreshMarkets()
         }
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private val actionToExchange = object : NavigationToExchange {
+        override fun navigateToExchange(exchangeName: String) {
+            val action =
+                MarketsForCoinFragmentDirections.actionMarketsForCoinFragmentToExchangeFragment(
+                    exchangeName
+                )
+            findNavController().navigate(action)
+        }
     }
 }
