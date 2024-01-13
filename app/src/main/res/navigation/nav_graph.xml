@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_allTickersFragment_to_marketsForCoinFragment"
             app:destination="@id/marketsForCoinFragment" />
+        <action
+            android:id="@+id/action_allTickersFragment_to_favouriteTickersFragment"
+            app:destination="@id/favouriteTickersFragment" />
     </fragment>
     <fragment
         android:id="@+id/marketsForCoinFragment"
@@ -38,4 +41,9 @@
             android:name="exchangeName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteTickersFragment"
+        android:name="com.example.cryptocurrencyapp.fragments.FavouriteTickersFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" />
 </navigation>

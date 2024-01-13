@@ -9,18 +9,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptocurrencyapp.R
-import com.example.cryptocurrencyapp.model.favourites.FavouriteCoin
 import com.example.cryptocurrencyapp.model.favourites.repository.FavouriteCoinRepository
 import com.example.cryptocurrencyapp.model.response.CurrentCoinDataResponse
 
-class TickerAdapter(
+class FavouriteTickersAdapter (
     private val navigationToMarketsForCoin: NavigationToMarketsForCoin
 ) :
-    RecyclerView.Adapter<TickerAdapter.CoinDataHolder>() {
+    RecyclerView.Adapter<FavouriteTickersAdapter.FavouriteCoinsHolder>() {
 
     val favouriteRepository = FavouriteCoinRepository.getInstance()
 
-    class CoinDataHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class FavouriteCoinsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val coinSymbol: TextView = itemView.findViewById(R.id.coinSymbol)
         val coinName: TextView = itemView.findViewById(R.id.coinName)
@@ -34,15 +33,15 @@ class TickerAdapter(
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinDataHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteCoinsHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false)
-        return CoinDataHolder(itemView)
+        return FavouriteCoinsHolder(itemView)
     }
 
     override fun getItemCount() = tickerList.size
 
-    override fun onBindViewHolder(holder: CoinDataHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavouriteCoinsHolder, position: Int) {
         val coinDataItem = tickerList[position]
         holder.coinSymbol.text = coinDataItem.symbol
         holder.coinName.text = coinDataItem.name
@@ -53,13 +52,9 @@ class TickerAdapter(
             navigationToMarketsForCoin.navigateToMarkets(coinDataItem.id!!)
         }
         holder.favIcon.setOnClickListener {
-            if (!favouriteRepository.existsById(coinDataItem.id!!)) {
-                favouriteRepository.save(FavouriteCoin(coinDataItem.id))
-                Log.i("INFO", "Now in repository ${favouriteRepository.findAll()}")
-            } else {
-                favouriteRepository.deleteById(coinDataItem.id)
-                Log.i("INFO", "Element with id ${coinDataItem.id} removed")
-            }
+            favouriteRepository.deleteById(coinDataItem.id!!)
+            Log.i("INFO", "Element with id ${coinDataItem.id} removed")
+            notifyDataSetChanged()
         }
     }
 }

@@ -1,47 +1,42 @@
 package com.example.cryptocurrencyapp.fragments
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cryptocurrencyapp.adapters.FavouriteTickersAdapter
 import com.example.cryptocurrencyapp.adapters.NavigationToMarketsForCoin
-import com.example.cryptocurrencyapp.adapters.TickerAdapter
-import com.example.cryptocurrencyapp.databinding.FragmentAllTickersBinding
-import com.example.cryptocurrencyapp.viewmodels.AllTickerViewModel
+import com.example.cryptocurrencyapp.databinding.FragmentFavouritesBinding
+import com.example.cryptocurrencyapp.viewmodels.FavouriteTickersViewModel
 
 
-class AllTickersFragment : Fragment() {
-    private var _binding: FragmentAllTickersBinding? = null
+class FavouriteTickersFragment : Fragment() {
+
+    private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var tickerAdapter: TickerAdapter
-    private val viewModel: AllTickerViewModel by viewModels { AllTickerViewModel.Factory() }
+    private lateinit var favTickerAdapter: FavouriteTickersAdapter
+    private val viewModel: FavouriteTickersViewModel by viewModels { FavouriteTickersViewModel.Factory() }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAllTickersBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentFavouritesBinding.inflate(layoutInflater, container, false)
         binding.tickersRecycler.layoutManager = LinearLayoutManager(context)
-        tickerAdapter = TickerAdapter(actionToMarkets).apply {
+        favTickerAdapter = FavouriteTickersAdapter(actionToMarkets).apply {
             viewModel.coinsData.observe(viewLifecycleOwner) {
                 tickerList = it
             }
         }
-        binding.tickersRecycler.adapter = tickerAdapter
+        binding.tickersRecycler.adapter = favTickerAdapter
         binding.refreshButton.setOnClickListener {
-            viewModel.refreshTickers()
-        }
-
-        binding.toFavButton.setOnClickListener{
-            val action =
-                AllTickersFragmentDirections.actionAllTickersFragmentToFavouriteTickersFragment()
-            findNavController().navigate(action)
+            viewModel.refreshFavTickers()
         }
 
         return binding.root

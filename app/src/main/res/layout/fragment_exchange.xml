@@ -31,7 +31,7 @@
         android:layout_height="700dp"
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@android:color/holo_green_light"
+        android:scrollbarThumbVertical="@android:color/holo_blue_bright"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
